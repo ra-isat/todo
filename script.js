@@ -12,7 +12,8 @@ const render = function() {
 todoList.textContent = '';
 todoCompleted.textContent = '';
 
-       todoData.forEach(function(item) {
+    // if(headerInput.value !== '') {
+        todoData.forEach(function(item) {
         const li = document.createElement('li');
         li.classList.add('todo-item');
 
@@ -21,13 +22,14 @@ todoCompleted.textContent = '';
             '<button class="todo-remove"></button>' +
             '<button class="todo-complete"></button>' +
         '</div>';
+    
 
         if(item.completed) {
             todoCompleted.append(li);
         } else {
             todoList.append(li);
         } 
-       
+    
 
         const btnTodoComplete = li.querySelector('.todo-complete');
         btnTodoComplete.addEventListener('click', function(){
@@ -38,8 +40,12 @@ todoCompleted.textContent = '';
         const btnTodoRemove = li.querySelector('.todo-remove');
         btnTodoRemove.addEventListener('click', function(){
             li.remove();
+            todoData.splice(todoData.indexOf(item), 1);
         });
     });
+
+    // }
+    
 };
 
 todoControl.addEventListener('submit', function(event){
@@ -52,7 +58,21 @@ todoControl.addEventListener('submit', function(event){
 
     todoData.push(newTodo);
 
+    headerInput.value = '';
+
     render();
 });
 
 render();
+
+let word = prompt('word?', '').split('');
+let j = word.length - 1;
+let letter;
+
+ for(let i = 0; i < j; i++) {
+     letter = word[i];
+     word[i] = word[j];
+     word[j] = letter;
+     j--;
+ }
+ console.log(word.join(''));
